@@ -1,0 +1,4 @@
+<resources>
+    <string name="scr_main_name">Inicio</string>
+    <string name="scr_qrcode_name">Escanear</string>
+</resources>
