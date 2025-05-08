@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinCocoapods)
 }
 
 kotlin {
@@ -16,9 +17,25 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
+    cocoapods {
+        version = "2.0"
+        summary = "CocoaPods test library"
+        homepage = "https://github.com/JetBrains/kotlin"
+        podfile = project.file("../iosApp/Podfile")
+        ios.deploymentTarget = "15.3"
+
+        specRepos {
+            url("https://github.com/CocoaPods/Specs.git")
+        }
+
+        pod("GoogleMLKit/BarcodeScanning"){
+            moduleName ="MLKitBarcodeScanning"
+            extraOpts += listOf("-compiler-option","-fmodules")
+        }
+    }
+
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -27,9 +44,8 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
-        
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -88,11 +104,9 @@ dependencies {
     implementation(libs.mlkit.barcode.scanning)
     implementation(libs.camera.mlkit.vision)
 
-// CameraX dependencies for camera integration
+    // CameraX dependencies for camera integration
     implementation(libs.androidx.camera.core)
     implementation(libs.camera.camera2)
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)
-
 }
-
