@@ -12,7 +12,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.nepreconsultintg.edigital.dependences.appModules
+import com.nepreconsultintg.edigital.screens.Login
+
 import edigitalmineracao.composeapp.generated.resources.Res
+import edigitalmineracao.composeapp.generated.resources.scr_login
 import edigitalmineracao.composeapp.generated.resources.scr_main_name
 import edigitalmineracao.composeapp.generated.resources.scr_qrcode_name
 import org.jetbrains.compose.resources.StringResource
@@ -22,7 +25,9 @@ import org.koin.dsl.module
 
 enum class ScannerScreens(val title: StringResource) {
     Start(title = Res.string.scr_main_name),
-    QrCode(title = Res.string.scr_qrcode_name)
+    QrCode(title = Res.string.scr_qrcode_name),
+    Login(title = Res.string.scr_login)
+
 }
 
 @Composable
@@ -46,6 +51,9 @@ fun App(
         ) {
             composable(route = ScannerScreens.Start.name) {
                 Home(navController)
+            }
+            composable(route = ScannerScreens.Login.name) {
+                Login(navController)
             }
             composable(route = ScannerScreens.QrCode.name) {
                 CameraScreen { code ->
