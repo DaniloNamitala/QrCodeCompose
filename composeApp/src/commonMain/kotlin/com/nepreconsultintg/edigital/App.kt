@@ -46,7 +46,7 @@ fun App(
     }) {
         NavHost(
             navController = navController,
-            startDestination = ScannerScreens.Start.name,
+            startDestination = ScannerScreens.Login.name,
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())

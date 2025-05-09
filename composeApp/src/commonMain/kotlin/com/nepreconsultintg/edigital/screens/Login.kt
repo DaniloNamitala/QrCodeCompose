@@ -1,9 +1,24 @@
 package com.nepreconsultintg.edigital.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHostState
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -12,19 +27,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.nepreconsultintg.edigital.ScannerScreens
-import com.nepreconsultintg.edigital.repository.LoginRepository
-import kotlinx.coroutines.launch
-import org.koin.compose.koinInject
+import com.nepreconsultintg.edigital.viewmodels.LoginViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun Login(navHostController: NavHostController) {
-    var cpf by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var isLoading by remember { mutableStateOf(false) }
+fun Login(navHostController: NavHostController, viewModel: LoginViewModel = koinViewModel()) {
     val snackbarHostState = remember { SnackbarHostState() }
-    val coroutineScope = rememberCoroutineScope()
-    val repository = koinInject<LoginRepository>()
 
+    LaunchedEffect(viewModel.loginSuccess){
+        if (viewModel.loginSuccess == true){
+            navHostController.navigate(ScannerScreens.Start.name)
+        } else if (viewModel.loginSuccess == false){
+            snackbarHostState.showSnackbar("Login inválido");
+        }
+    }
+
+    // UI
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -36,9 +54,9 @@ fun Login(navHostController: NavHostController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = cpf,
+            value = viewModel.cpf,
             onValueChange = { newValue ->
-                cpf = newValue.filter { it.isDigit() }.take(11) // Aceita até 11 dígitos numéricos
+                viewModel.cpf = newValue.filter { it.isDigit() }.take(11) // Aceita até 11 dígitos numéricos
             },
             label = { Text("CPF") },
             singleLine = true,
@@ -49,37 +67,18 @@ fun Login(navHostController: NavHostController) {
         Spacer(modifier = Modifier.height(12.dp))
 
         OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
+            value = viewModel.password,
+            onValueChange = { viewModel.password = it },
             label = { Text("Senha") },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
         )
 
-
-
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = {
-                println("Clicou!")
-                coroutineScope.launch {
-                    isLoading = true
-
-                    val isSuccess = repository.login(cpf, password)
-
-                    if (isSuccess){
-                        println("success")
-
-                        navHostController.navigate(ScannerScreens.Start.name)
-                    } else {
-                        println("unsuccess")
-                    }
-
-                    isLoading = false
-                }
-            },
+            onClick = { viewModel.onLogin() },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp),

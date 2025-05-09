@@ -10,6 +10,8 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
@@ -28,7 +30,6 @@ class EdigitalDataSource{
 
     // Função que fará a requisição de login para a API
     suspend fun login(cpf: String, password: String): LoginResponse?{
-
         return try{
             val response: HttpResponse = client.post("http://192.168.179.250/Mina/ApiCadastro/Login"){
                 contentType(ContentType.Application.Json)
