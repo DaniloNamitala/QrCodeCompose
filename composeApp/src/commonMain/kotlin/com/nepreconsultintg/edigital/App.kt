@@ -5,6 +5,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,13 +19,14 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 enum class ScannerScreens(val title: StringResource) {
     Start(title = Res.string.scr_main_name),
-    QrCode(title = Res.string.scr_qrcode_name),
+    QrCode(title = Res.string.scr_qrcode_name)
 }
 
 @Composable
 @Preview
 fun App(
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    prefs: DataStore<Preferences>
 ) {
     NavHost (
         navController = navController,

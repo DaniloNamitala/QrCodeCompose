@@ -43,6 +43,8 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            api(libs.datastore.preferences)
+            api(libs.datastore)
         }
     }
 }
@@ -88,7 +90,7 @@ dependencies {
     implementation(libs.mlkit.barcode.scanning)
     implementation(libs.camera.mlkit.vision)
 
-// CameraX dependencies for camera integration
+    // CameraX dependencies for camera integration
     implementation(libs.androidx.camera.core)
     implementation(libs.camera.camera2)
     implementation(libs.camera.lifecycle)

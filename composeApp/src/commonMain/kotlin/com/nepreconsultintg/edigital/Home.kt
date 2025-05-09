@@ -77,7 +77,7 @@ fun Home(navHostController: NavHostController) {
                     AlertDialog(
                         onDismissRequest = {},
                         title = { Text("QrCode") },
-                        text = { Text(strCode.substring(0, min(strCode.length, 100)) + (if (strCode.length > 100) "[...]" else "")) },
+                        text = { Text("[${code?.size}]: " + strCode.substring(0, min(strCode.length, 100)) + (if (strCode.length > 100) "[...]" else "")) },
                         buttons = {
                             Row(
                                 modifier = Modifier.padding(all = 8.dp),
