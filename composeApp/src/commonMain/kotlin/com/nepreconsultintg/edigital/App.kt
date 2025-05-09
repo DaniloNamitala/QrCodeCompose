@@ -11,11 +11,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.nepreconsultintg.edigital.dependences.appModules
 import edigitalmineracao.composeapp.generated.resources.Res
 import edigitalmineracao.composeapp.generated.resources.scr_main_name
 import edigitalmineracao.composeapp.generated.resources.scr_qrcode_name
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.KoinApplication
+import org.koin.dsl.module
 
 enum class ScannerScreens(val title: StringResource) {
     Start(title = Res.string.scr_main_name),
@@ -28,20 +31,27 @@ fun App(
     navController: NavHostController = rememberNavController(),
     prefs: DataStore<Preferences>
 ) {
-    NavHost (
-        navController = navController,
-        startDestination = ScannerScreens.Start.name,
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-    ) {
-        composable(route = ScannerScreens.Start.name) {
-            Home(navController)
-        }
-        composable(route = ScannerScreens.QrCode.name) {
-            CameraScreen { code ->
-                navController.previousBackStackEntry?.savedStateHandle?.set("qrcode", code)
-                navController.popBackStack()
+    KoinApplication(application = {
+        modules(
+            appModules,
+            module { single { prefs } }
+        )
+    }) {
+        NavHost(
+            navController = navController,
+            startDestination = ScannerScreens.Start.name,
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            composable(route = ScannerScreens.Start.name) {
+                Home(navController)
+            }
+            composable(route = ScannerScreens.QrCode.name) {
+                CameraScreen { code ->
+                    navController.previousBackStackEntry?.savedStateHandle?.set("qrcode", code)
+                    navController.popBackStack()
+                }
             }
         }
     }

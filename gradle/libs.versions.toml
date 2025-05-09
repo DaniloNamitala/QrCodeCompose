@@ -19,7 +19,7 @@ moko = "0.18.0"
 lifecycleViewModel = "2.8.3"
 lifecycleViewModelCompose = "2.8.0"
 navigationCompose = "2.8.0-alpha10"
-
+koin = "4.0.3"
 cameraCore = "1.4.1"
 cameraMlkitVision = "1.4.1"
 camerax = "1.4.1"
@@ -36,7 +36,8 @@ androidx-camera-core = { group = "androidx.camera", name = "camera-core", versio
 mlkit-barcode-scanning = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "mlkit-barcode-scanning" }
 datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
-
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
