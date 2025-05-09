@@ -1,10 +1,9 @@
 package com.nepreconsultintg.edigital.repository
 
 import com.nepreconsultintg.edigital.datasource.EdigitalDataSource
-import com.nepreconsultintg.edigital.models.LoginResponse
-import com.nepreconsultintg.edigital.storage
+import com.nepreconsultintg.edigital.datasource.storage
 
-class LoginRepository(private val datasource : EdigitalDataSource = EdigitalDataSource()) { // recebe como parametro a classe do datasource
+class LoginRepository(private val datasource : EdigitalDataSource) { // recebe como parametro a classe do datasource
 
     // Função para validar o cpf
     fun isValidCPF(cpf: String): Boolean{

@@ -1,4 +1,4 @@
-package com.nepreconsultintg.edigital
+package com.nepreconsultintg.edigital.screens
 
 import androidx.compose.runtime.Composable
 

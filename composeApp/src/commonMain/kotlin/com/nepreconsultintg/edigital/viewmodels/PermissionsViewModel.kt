@@ -1,4 +1,4 @@
-package com.nepreconsultintg.edigital
+package com.nepreconsultintg.edigital.viewmodels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

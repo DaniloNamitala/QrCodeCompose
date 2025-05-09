@@ -12,6 +12,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.nepreconsultintg.edigital.dependences.appModules
+import com.nepreconsultintg.edigital.screens.CameraScreen
+import com.nepreconsultintg.edigital.screens.Home
 import com.nepreconsultintg.edigital.screens.Login
 
 import edigitalmineracao.composeapp.generated.resources.Res

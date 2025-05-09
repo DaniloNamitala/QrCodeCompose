@@ -1,4 +1,5 @@
-package com.nepreconsultintg.edigital
+package com.nepreconsultintg.edigital.screens
+
 
 import android.graphics.Rect
 import androidx.camera.core.ImageAnalysis

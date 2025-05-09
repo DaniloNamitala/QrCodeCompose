@@ -14,6 +14,7 @@ import androidx.navigation.NavHostController
 import com.nepreconsultintg.edigital.ScannerScreens
 import com.nepreconsultintg.edigital.repository.LoginRepository
 import kotlinx.coroutines.launch
+import org.koin.compose.koinInject
 
 @Composable
 fun Login(navHostController: NavHostController) {
@@ -22,7 +23,7 @@ fun Login(navHostController: NavHostController) {
     var isLoading by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
-
+    val repository = koinInject<LoginRepository>()
 
     Column(
         modifier = Modifier
@@ -66,8 +67,6 @@ fun Login(navHostController: NavHostController) {
                 coroutineScope.launch {
                     isLoading = true
 
-                    // Chamada ao repositório
-                    val repository = LoginRepository()
                     val isSuccess = repository.login(cpf, password)
 
                     if (isSuccess){
